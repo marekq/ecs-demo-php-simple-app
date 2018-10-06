@@ -2,34 +2,39 @@
 <html lang="en">
 
     <head>
+        <meta http-equiv="Refresh" content="5">
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Simple PHP App</title>
+        <title>Fargate demo</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-        <style>body {margin-top: 40px; background-color: #333;}</style>
+        <style>body {margin-top: 40px}</style>
         <link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-        <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
     </head>
 
     <body>
         <div class="container">
             <div class="hero-unit">
-                <h1>Simple PHP App</h1>
-                <h2>Congratulations</h2>
-                <p>Your PHP application is now running on a container in Amazon ECS.</p>
-                <p>The container is running PHP version <?php echo phpversion(); ?>.</p>
-                <?php
-                        $myfile = fopen("/var/www/my-vol/date", "r") or die("");
-                        echo fread($myfile,filesize("/var/www/my-vol/date"));
-                        fclose($myfile);
-                ?>
-
+                <h2>
+                    <?php 
+                        $ip = file_get_contents('http://api.ipify.org/'); 
+                        echo "The containers IP address is " . $ip;
+                    ?>
+                </h2>
+                <p>This application is now running as a Fargate container. <br>
+                The webpage autorefreshes every 5 seconds and connects to a random container behind the load balancer.</p><br>
             </div>
         </div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
+        <script >function random_bg_color() {
+            var x = Math.floor(Math.random() * 256);
+            var y = Math.floor(Math.random() * 256);
+            var z = Math.floor(Math.random() * 256);
+            var bgColor = "rgb(" + x + "," + y + "," + z + ")";
+
+            document.body.style.background = bgColor;
+        }
+        random_bg_color();
+        </script>
     </body>
 
 </html>

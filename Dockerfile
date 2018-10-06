@@ -1,8 +1,11 @@
-FROM ubuntu:18.04
+FROM ubuntu:latest
 
 # Install app
 RUN apt-get update 
-RUN apt-get install apache2 -y --no-install-recommends
+RUN apt-get dist-upgrade -y
+RUN apt-get install tzdata -y
+RUN dpkg-reconfigure -f noninteractive tzdata
+RUN apt-get install apache2 php libapache2-mod-php -y --no-install-recommends
 RUN apt-get autoremove -y && apt-get autoclean -y
 RUN rm -rf /var/www/*
 ADD src /var/www/html

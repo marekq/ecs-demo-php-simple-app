@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+
+  build:
+    commands:
+      - arn=`echo $CODEBUILD_BUILD_ARN | awk -F ':' '{print $5}'`
+      - end=`echo '.dkr.ecr.us-west-2.amazonaws.com/container-demo:latest'`
+      - uri=`echo $arn$end`
+
+      - docker build -t demo:latest .
+      - printf '[{"name":"container-demo","imageUri":"%s"}]' ${uri} > container.json
+
+      - docker tag demo:latest ${uri}
+      - docker push ${uri}
+
+artifacts:
+    files: container.json
