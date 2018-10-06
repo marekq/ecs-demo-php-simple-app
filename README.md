@@ -6,7 +6,7 @@ A simple demo created by @marekq to demonstrate AWS CodePipeline, AWS CodeBuild 
 The container image is based on the ecs-demo-php-simple app repository, but has been modified with a newer OS image and a few modifications to the HTML, JavaScript and PHP code. The landing page displays the external IP address of the container and shows a random background color, which makes it easier to show how the end to end CI/CD deployment works during demo's. 
 
 
-![alt tag](https://raw.githubusercontent.com/aws-samples/ecs-demo-php-simple-app/master/docs/webpage.png)
+![alt tag](https://raw.githubusercontent.com/marekq/ecs-demo-php-simple-app/master/docs/webpage.png)
 
 
 In case of any issues or questions, please reach out to @marekq or raise an issue on GitHub. 
