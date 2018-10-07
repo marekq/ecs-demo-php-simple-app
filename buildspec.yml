@@ -8,8 +8,7 @@ phases:
   build:
     commands:
       - arn=`echo $CODEBUILD_BUILD_ARN | awk -F ':' '{print $5}'`
-      - end=`echo '.dkr.ecr.us-west-2.amazonaws.com/container-demo:latest'`
-      - uri=`echo $arn$end`
+      - uri=`echo $arn'.dkr.ecr.'$AWS_DEFAULT_REGION'.amazonaws.com/container-demo'`
 
       - docker build -t demo:latest .
       - printf '[{"name":"container-demo","imageUri":"%s"}]' ${uri} > container.json
