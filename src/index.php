@@ -1,40 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 
+    <!-- get the ip address of the user visiting and generate a random background color -->
+    <?php 
+        $ip = file_get_contents('http://api.ipify.org/'); 
+        $hx = '' . sprintf("%u", ip2long($ip)) . '';
+        $co = '#' . substr(dechex($hx), -6) . '';
+    ?>
+
     <head>
-        <meta http-equiv="Refresh" content="5">
-        <meta charset="utf-8">
-        <title>Fargate demo</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-        <style>body {margin-top: 40px}</style>
-        <link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <!-- refresh the page every three seconds -->
+
+        <meta http-equiv="Refresh" content="3" charset="utf-8">
+        <title>container demo page</title>
+
+        <!-- setting some style properties -->
+
+        <style>
+            body {
+                margin-top: 40px;
+                background-color: <?php echo $co;?>
+            }       
+            div {
+                text-align: center;
+                align: center;
+                background-color: white;
+                width: 800px;
+                font-family: monospace;
+                font-size: 20px;
+                color: #555;
+                padding: 25px;
+                border-radius: 30px;
+            }
+            p {
+                text-align: left;
+                font-size: 18px;
+            }
+        </style>
+
     </head>
 
-    <body>
-        <div class="container">
-            <div class="hero-unit">
-                <h2>
-                    <?php 
-                        $ip = file_get_contents('http://api.ipify.org/'); 
-                        echo "The containers IP address is " . $ip;
-                    ?>
-                </h2>
-                <p>This application is now running as a Fargate container. <br>
-                The webpage autorefreshes every 5 seconds and connects to a random container behind the load balancer.</p><br>
-            </div>
+        <!-- return the html of the page -->
+        <body><center><div><br>
+            <h2>
+                <?php 
+                    echo "The external IP address is " . $ip . ' ';
+                ?>
+
+            </h2>
+            <p>The webpage autorefreshes every 3 seconds and connects to a random container behind the load balancer.</p> 
+            <p>The background color of the pages changes depending on the container serving the request. 
+            The container was created by <a href = 'https://twitter.com/marekq'>@marekq</a> and can be found on <a href = 'https://github.com/marekq/ecs-demo-php-simple-app'>GitHub</a> and <a href = 'https://hub.docker.com/r/marekq/container-demo'>DockerHub</a>.</p><br>
         </div>
-
-        <script >function random_bg_color() {
-            var x = Math.floor(Math.random() * 256);
-            var y = Math.floor(Math.random() * 256);
-            var z = Math.floor(Math.random() * 256);
-            var bgColor = "rgb(" + x + "," + y + "," + z + ")";
-
-            document.body.style.background = bgColor;
-        }
-        random_bg_color();
-        </script>
-    </body>
+    </center></body>
 
 </html>

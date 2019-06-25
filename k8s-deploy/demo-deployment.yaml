@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "demo"
+  namespace: "demo"
+spec:
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: "demo"
+    spec:
+      containers:
+      - image: marekq/container-demo
+        imagePullPolicy: Always
+        name: "demo"
+        ports:
+        - containerPort: 80
